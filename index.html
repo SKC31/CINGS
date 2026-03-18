@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINGS Enterprises — Giving Smartness to Your Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0d1f3c;
+    --navy-light: #152848;
+    --red: #6b0f1a;
+    --red-bright: #8b1a2a;
+    --gold: #c9a84c;
+    --white: #f5f5f0;
+    --gray: #8a9bb0;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Raleway', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 60px; background: rgba(10,22,40,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(107,15,26,0.4); }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo img { height: 48px; width: auto; object-fit: contain; }
+  .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--white); }
+  .logo-sub { font-size: 0.55rem; letter-spacing: 5px; color: var(--gold); font-weight: 600; display: block; margin-top: -4px; }
+  nav ul { list-style: none; display: flex; gap: 28px; }
+  nav ul a { text-decoration: none; color: var(--gray); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
+  nav ul a:hover { color: var(--white); }
+  .nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 9px 20px; border-radius: 2px; }
+  .nav-cta:hover { background: var(--red-bright) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-nav { display: none; position: fixed; top: 76px; left: 0; right: 0; background: rgba(10,22,40,0.99); backdrop-filter: blur(16px); flex-direction: column; padding: 20px 30px 28px; border-bottom: 1px solid rgba(107,15,26,0.4); z-index: 99; }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { text-decoration: none; color: var(--gray); font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s; }
+  .mobile-nav a:hover { color: var(--white); }
+  .mobile-nav a.mob-cta { border-bottom: none; margin-top: 12px; background: var(--red); color: var(--white) !important; text-align: center; padding: 13px; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding: 120px 60px 80px; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, var(--navy) 40%, var(--navy-light) 100%); }
+  .hero-geo { position: absolute; right: -80px; top: -80px; width: 700px; height: 700px; z-index: 0; background: linear-gradient(145deg, rgba(107,15,26,0.2) 0%, transparent 60%); clip-path: polygon(30% 0%, 100% 0%, 100% 70%, 60% 100%, 0% 60%); }
+  .hero-geo2 { position: absolute; left: -100px; bottom: -100px; width: 500px; height: 500px; z-index: 0; background: linear-gradient(145deg, rgba(13,31,60,0.8) 0%, rgba(107,15,26,0.08) 100%); clip-path: polygon(0% 30%, 70% 0%, 100% 50%, 40% 100%); }
+  .hero-line { position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(107,15,26,0.4), transparent); z-index: 0; }
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 10px; font-size: 0.65rem; letter-spacing: 4px; font-weight: 700; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 8vw, 7.5rem); line-height: 0.92; letter-spacing: 2px; margin-bottom: 8px; }
+  h1 span { color: var(--red-bright); }
+  .hero-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.25rem; color: var(--gray); margin: 20px 0 40px; max-width: 520px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { background: var(--red); color: var(--white); padding: 16px 36px; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); display: inline-block; }
+  .btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--white); padding: 16px 36px; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; transition: border-color 0.2s; }
+  .btn-outline:hover { border-color: var(--red-bright); }
+  .hero-stats { position: absolute; right: 60px; bottom: 80px; z-index: 1; display: flex; gap: 48px; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--red-bright); line-height: 1; }
+  .stat-label { font-size: 0.6rem; letter-spacing: 3px; color: var(--gray); text-transform: uppercase; margin-top: 4px; }
+
+  /* SHARED */
+  section { padding: 100px 60px; }
+  .section-tag { font-size: 0.62rem; letter-spacing: 5px; font-weight: 700; color: var(--red-bright); text-transform: uppercase; margin-bottom: 12px; }
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); letter-spacing: 2px; line-height: 1; margin-bottom: 20px; }
+  .divider { width: 60px; height: 3px; background: linear-gradient(to right, var(--red), transparent); margin-bottom: 40px; }
+
+  /* ABOUT */
+  #about { background: var(--navy-mid); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-text p { color: var(--gray); line-height: 1.9; font-size: 0.95rem; margin-bottom: 20px; }
+  .about-card { background: var(--navy-light); border: 1px solid rgba(107,15,26,0.3); padding: 40px; position: relative; overflow: hidden; }
+  .about-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--red); }
+  .about-card-label { font-size: 0.6rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .about-card-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--white); margin-bottom: 6px; }
+  .about-card-desc { font-size: 0.82rem; color: var(--gray); }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .info-item { background: rgba(255,255,255,0.03); padding: 20px; border: 1px solid rgba(255,255,255,0.06); }
+  .info-item-label { font-size: 0.58rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .info-item-val { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+
+  /* ── SERVICES ── */
+  #services { background: var(--navy); }
+  .services-intro { max-width: 580px; margin-bottom: 60px; }
+  .services-intro p { color: var(--gray); line-height: 1.8; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  /* Each service card is a click-to-open tile */
+  .service-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 220px;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); }
+
+  /* Background image layer */
+  .service-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease, filter 0.3s;
+    filter: brightness(0.25) saturate(0.6);
+  }
+  .service-card:hover .service-bg,
+  .service-card.open .service-bg {
+    transform: scale(1.05);
+    filter: brightness(0.15) saturate(0.4);
+  }
+
+  /* Dark overlay */
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(10,22,40,0.6) 60%, transparent 100%);
+    transition: background 0.3s;
+  }
+
+  /* Number */
+  .service-num {
+    position: absolute; top: 14px; right: 18px; z-index: 2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem; line-height: 1;
+    color: rgba(107,15,26,0.2);
+    transition: color 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+  .service-card:hover .service-num,
+  .service-card.open .service-num {
+    color: var(--red-bright);
+    transform: scale(1.1);
+  }
+
+  /* Main content visible always */
+  .service-front {
+    position: relative; z-index: 2;
+    padding: 28px 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 220px;
+  }
+  .service-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem; letter-spacing: 1.5px;
+    color: var(--white);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .service-card:hover .service-title { color: var(--white); }
+
+  .service-hint {
+    font-size: 0.62rem; letter-spacing: 2px; color: var(--gold);
+    text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.3s;
+  }
+  .service-card.open .service-hint { opacity: 0; }
+  .service-hint-arrow {
+    display: inline-block; transition: transform 0.3s;
+    font-size: 0.8rem;
+  }
+  .service-card:hover .service-hint-arrow { transform: translateX(4px); }
+
+  /* Bottom bar highlight */
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+    height: 2px; background: var(--red);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover::after,
+  .service-card.open::after { transform: scaleX(1); }
+
+  /* Expandable sub-service panel */
+  .service-panel {
+    position: absolute; inset: 0; z-index: 4;
+    background: rgba(10,22,40,0.97);
+    padding: 24px;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow-y: auto;
+  }
+  .service-card.open .service-panel {
+    opacity: 1; pointer-events: all;
+    transform: translateY(0);
+  }
+  .panel-close {
+    align-self: flex-end;
+    background: none; border: none; cursor: pointer;
+    color: var(--gray); font-size: 1.2rem; line-height: 1;
+    transition: color 0.2s; margin-bottom: 8px;
+    padding: 2px 6px;
+  }
+  .panel-close:hover { color: var(--white); }
+  .panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 2px;
+    color: var(--red-bright); margin-bottom: 14px;
+    border-bottom: 1px solid rgba(107,15,26,0.4);
+    padding-bottom: 10px;
+  }
+  .panel-sub-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .panel-sub-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.82rem; color: var(--gray); line-height: 1.5;
+  }
+  .panel-sub-list li::before {
+    content: '▸'; color: var(--red-bright);
+    flex-shrink: 0; margin-top: 1px;
+    font-size: 0.7rem;
+  }
+
+  /* INDUSTRIES */
+  #industries { background: var(--navy-mid); }
+  .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .industry-card { padding: 36px 28px; border: 1px solid rgba(255,255,255,0.07); position: relative; overflow: hidden; transition: border-color 0.3s; }
+  .industry-card:hover { border-color: rgba(107,15,26,0.5); }
+  .industry-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--red), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .industry-card:hover .industry-bar { transform: scaleX(1); }
+  .industry-emoji { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .industry-name { font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 10px; }
+  .industry-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.7; }
+
+  /* VALUES */
+  #values { background: var(--red); padding: 80px 60px; }
+  #values .section-tag { color: rgba(255,255,255,0.7); }
+  #values h2 { color: var(--white); }
+  #values .divider { background: linear-gradient(to right, rgba(255,255,255,0.5), transparent); }
+  .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 50px; }
+  .value-item { background: rgba(0,0,0,0.18); padding: 32px 24px; border-top: 2px solid rgba(255,255,255,0.2); transition: background 0.2s; }
+  .value-item:hover { background: rgba(0,0,0,0.3); }
+  .value-title { font-weight: 800; font-size: 0.88rem; color: var(--white); margin-bottom: 10px; letter-spacing: 1px; }
+  .value-desc { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+  /* TEAM SHOWCASE */
+  #team { background: var(--navy); }
+  .team-showcase { display: grid; grid-template-columns: 340px 1fr; gap: 48px; align-items: start; margin-top: 60px; }
+  .team-featured { position: sticky; top: 100px; text-align: center; }
+  .team-featured-img-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; border: 3px solid var(--red); background: var(--navy-mid); }
+  .team-featured-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: opacity 0.3s ease; }
+  .team-featured-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--white); margin-top: 18px; }
+  .team-featured-role { font-size: 0.7rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-top: 6px; }
+  .team-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .team-thumb { cursor: pointer; position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.06); transition: border-color 0.3s, transform 0.3s; filter: grayscale(50%) brightness(0.65); }
+  .team-thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s; }
+  .team-thumb:hover { filter: grayscale(0%) brightness(1); border-color: rgba(107,15,26,0.6); transform: scale(1.03); }
+  .team-thumb:hover img { transform: scale(1.06); }
+  .team-thumb.active { border-color: var(--red); filter: grayscale(0%) brightness(1); box-shadow: 0 0 0 2px var(--red); }
+  .thumb-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(10,22,40,0.95), transparent); padding: 28px 8px 8px; transform: translateY(100%); transition: transform 0.3s; }
+  .team-thumb:hover .thumb-label, .team-thumb.active .thumb-label { transform: translateY(0); }
+  .thumb-name { display: block; font-weight: 700; font-size: 0.7rem; color: var(--white); }
+  .thumb-role { display: block; font-size: 0.56rem; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; margin-top: 2px; }
+
+  /* PARTNERS */
+  #clients { background: var(--navy-mid); }
+  .partners-stats { display: flex; align-items: center; gap: 48px; margin-bottom: 56px; }
+  .partner-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: var(--red-bright); line-height: 1; }
+  .partner-stat-label { font-size: 0.7rem; letter-spacing: 3px; color: var(--gray); text-transform: uppercase; margin-top: 4px; }
+  .partner-stat-divider { width: 1px; height: 60px; background: rgba(255,255,255,0.1); }
+  .clients-marquee-wrap { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+  .clients-track { display: flex; gap: 16px; animation: scroll 30s linear infinite; width: max-content; }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .client-chip { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 14px 24px; white-space: nowrap; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; color: var(--gray); text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .client-chip:hover { background: rgba(107,15,26,0.15); color: var(--white); }
+
+  /* REVIEWS */
+  #reviews { background: var(--navy); }
+  .reviews-intro { max-width: 580px; margin-bottom: 60px; }
+  .reviews-intro p { color: var(--gray); line-height: 1.8; }
+  .review-form-wrap { background: var(--navy-light); border: 1px solid rgba(107,15,26,0.25); padding: 40px; position: relative; overflow: hidden; margin-bottom: 60px; }
+  .review-form-wrap::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--red); }
+  .star-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .star-row > span { font-size: 0.6rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .stars { display: flex; flex-direction: row-reverse; gap: 4px; }
+  .stars input { display: none; }
+  .stars label { font-size: 2.2rem; color: rgba(255,255,255,0.15); cursor: pointer; transition: color 0.15s; line-height: 1; }
+  .stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: var(--gold); }
+  .review-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .review-field { display: flex; flex-direction: column; gap: 6px; }
+  .review-field.full { grid-column: 1 / -1; }
+  .review-field label { font-size: 0.6rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .review-field input, .review-field select, .review-field textarea { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 12px 14px; font-family: 'Raleway', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+  .review-field input:focus, .review-field select:focus, .review-field textarea:focus { border-color: var(--red-bright); }
+  .review-field textarea { resize: vertical; min-height: 100px; }
+  .review-field select option { background: var(--navy); }
+  .review-submit { background: var(--red); color: var(--white); border: none; padding: 14px 32px; font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); margin-top: 8px; }
+  .review-submit:hover { background: var(--red-bright); }
+  .review-success { display: none; align-items: center; gap: 12px; background: rgba(107,15,26,0.2); border: 1px solid var(--red); padding: 14px 20px; margin-top: 16px; font-size: 0.88rem; color: var(--white); }
+  .review-success.show { display: flex; }
+  .reviews-display-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--white); margin-bottom: 28px; }
+  .reviews-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .review-card { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05); padding: 24px; transition: border-color 0.3s; }
+  .review-card:hover { border-color: rgba(107,15,26,0.4); }
+  .review-card-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 12px; }
+  .review-card-msg { font-size: 0.85rem; color: var(--gray); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+  .review-card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+  .review-card-name { font-weight: 700; font-size: 0.82rem; color: var(--white); }
+  .review-card-service { font-size: 0.6rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-top: 2px; }
+  .review-card-date { font-size: 0.65rem; color: var(--gray); }
+
+  /* CONTACT */
+  #contact { background: var(--navy-mid); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info p { color: var(--gray); line-height: 1.8; margin-bottom: 36px; }
+  .contact-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .contact-icon { width: 40px; height: 40px; background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .contact-text-label { font-size: 0.58rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 3px; }
+  .contact-text-val { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 0.6rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .form-group input, .form-group textarea, .form-group select { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 14px 16px; font-family: 'Raleway', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--red-bright); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select option { background: var(--navy); }
+  .form-submit { background: var(--red); color: var(--white); border: none; padding: 16px 36px; font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); align-self: flex-start; }
+  .form-submit:hover { background: var(--red-bright); }
+
+  /* FOOTER */
+  footer { background: #060d1a; padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(107,15,26,0.3); flex-wrap: wrap; gap: 24px; }
+  .footer-copy { font-size: 0.75rem; color: var(--gray); }
+  .footer-copy strong { color: var(--white); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 0.68rem; letter-spacing: 2px; color: var(--gray); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-motto { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.82rem; color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 14px 30px; }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    section, #about, #contact { padding: 70px 30px; }
+    #values { padding: 70px 30px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    #about, #contact { grid-template-columns: 1fr; gap: 48px; }
+    #hero { padding: 120px 30px 80px; }
+    .hero-stats { position: static; margin-top: 48px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .team-showcase { grid-template-columns: 1fr; }
+    .team-featured { position: static; }
+    .team-featured-img-wrap { max-width: 300px; margin: 0 auto; }
+    .team-thumbs { grid-template-columns: repeat(4, 1fr); }
+    .reviews-list { grid-template-columns: repeat(2, 1fr); }
+    footer { padding: 36px 30px; }
+  }
+  @media (max-width: 640px) {
+    .services-grid, .values-grid, .industries-grid { grid-template-columns: 1fr; }
+    .form-row, .review-fields { grid-template-columns: 1fr; }
+    .review-field.full { grid-column: 1; }
+    h1 { font-size: 3.5rem; }
+    .hero-stats { gap: 20px; }
+    .partners-stats { gap: 20px; flex-wrap: wrap; }
+    .team-thumbs { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .reviews-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="Cings_Logo_full.png" alt="CINGS Enterprises Logo">
+    <div>
+      <span class="logo-text">CINGS</span>
+      <span class="logo-sub">ENTERPRISES</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#clients">Partners</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#industries" onclick="closeMobileNav()">Industries</a>
+  <a href="#team" onclick="closeMobileNav()">Team</a>
+  <a href="#clients" onclick="closeMobileNav()">Partners</a>
+  <a href="#reviews" onclick="closeMobileNav()">Reviews</a>
+  <a href="#contact" onclick="closeMobileNav()" class="mob-cta">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-geo"></div>
+  <div class="hero-geo2"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-tag">Est. November 2019 — Lusaka, Zambia</p>
+    <h1>GIVING<br><span>SMART</span>NESS<br>TO YOUR<br>BUSINESS</h1>
+    <p class="hero-sub">Business Development, Management &amp; Accounting Consultancy — through good thoughts, good deeds, broad vision.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Partners</div></div>
+    <div class="stat"><div class="stat-num">1,300+</div><div class="stat-label">Clients Served</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Core Services</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Industries</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text fade-up">
+    <p class="section-tag">Who We Are</p>
+    <h2>ABOUT THE COMPANY</h2>
+    <div class="divider"></div>
+    <p>CINGS Enterprises is a Zambian business enterprise incorporated with a vision to equip individuals with the business philosophies of enterprises — teaching them how to best venture into business regardless of the type of venture.</p>
+    <p>We are a customer-centred venture that brings to fruition the needs and wants of a client according to the safety and quality of the market, in relation to climatic changes and the need for sustainability in all industries.</p>
+    <p>The company deals in financial management, tax plans, accounting book services, project research, company profiling, graphic designing, branding, and social media management.</p>
+    <a href="#contact" class="btn-primary" style="margin-top:12px;">Work With Us</a>
+  </div>
+  <div class="about-visual fade-up">
+    <div class="about-card">
+      <div class="about-card-label">Company Details</div>
+      <div class="about-card-val">CINGS Enterprises</div>
+      <div class="about-card-desc">Registered under the Registration of Business Names Act, Zambia</div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-item-label">Incorporated</div><div class="info-item-val">8 Nov 2019</div></div>
+        <div class="info-item"><div class="info-item-label">Bankers</div><div class="info-item-val">Zanaco</div></div>
+        <div class="info-item"><div class="info-item-label">Partners</div><div class="info-item-val">20+</div></div>
+        <div class="info-item"><div class="info-item-label">Location</div><div class="info-item-val">Chalala 18002, Lusaka.</div><div class="info-item-val">Zesco Area, Sesheke.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro fade-up">
+    <p class="section-tag">What We Offer</p>
+    <h2>OUR SERVICES</h2>
+    <div class="divider"></div>
+    <p>Click any service to explore what's included. Each offering is tailored to meet your specific business needs.</p>
+  </div>
+  <div class="services-grid">
+
+    <!-- 01 Business Development -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Business_development.png')"></div>
+      <div class="service-num">01</div>
+      <div class="service-front">
+        <div class="service-title">Business Consultancy &amp; Development</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Business Consultancy &amp; Development</div>
+        <ul class="panel-sub-list">
+          <li>General business consultancy(Per Hour)</li>
+          <li>- Company Registration Limited + ZRA + NAPSA</li>
+          <li>Business proposal</li>
+          <li>Business Name + ZRA + NAPSA</li>
+          <li>- Limited Company + ZRA</li>
+          <li>Business Name + ZRA</li>
+          <li>- Limited Company</li>
+          <li>Business Name</li>
+          <li>ZPPA Registration</li>
+          
+        </ul>
+      </div>
+    </div>
+
+    <!-- 02 Company Profiling -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Company_profiling.png')"></div>
+      <div class="service-num">02</div>
+      <div class="service-front">
+        <div class="service-title">Company Profiling</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Company Profiling</div>
+        <ul class="panel-sub-list">
+          <li>Professional company profile design and writing</li>
+          <li>Brand identity documentation</li>
+          <li>Capability statements for tenders and proposals</li>
+          <li>Investor and stakeholder presentation packages</li>
+          <li>Mission, vision and values articulation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 Graphic Design -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Grapgic_design.png')"></div>
+      <div class="service-num">03</div>
+      <div class="service-front">
+        <div class="service-title">Graphic Design &amp; Branding</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Graphic Design &amp; Branding</div>
+        <ul class="panel-sub-list">
+          <li>Logo design and brand identity creation</li>
+          <li>Social media graphics and banners</li>
+          <li>Brochures, flyers and marketing materials</li>
+          <li>General printing and production management</li>
+          <li>Brand style guides and consistency documents</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 Website Development -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('web_development.png')"></div>
+      <div class="service-num">04</div>
+      <div class="service-front">
+        <div class="service-title">Website Development</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Website Development</div>
+        <ul class="panel-sub-list">
+          <li>Modern, responsive website design and development</li>
+          <li>online store setup</li>
+          <li>IT systems development and integration</li>
+          <li>Website maintenance</li>
+          <li>Custom web applications and portals</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 05 Market Research -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Market_research.png')"></div>
+      <div class="service-num">05</div>
+      <div class="service-front">
+        <div class="service-title">Market &amp; Social Research</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Market &amp; Social Research</div>
+        <ul class="panel-sub-list">
+          <li>Market research and competitor analysis</li>
+          <li>Economic and feasibility research</li>
+          <li>Social research and community surveys</li>
+          <li>Data collection, analysis and reporting</li>
+          <li>Consumer demand and behaviour studies</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 06 Project Planning -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Project_planning.png')"></div>
+      <div class="service-num">06</div>
+      <div class="service-front">
+        <div class="service-title">Project Planning &amp; M&amp;E</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Project Planning &amp; M&amp;E</div>
+        <ul class="panel-sub-list">
+          <li>Project planning and scheduling</li>
+          <li>Project management and oversight</li>
+          <li>Research and field surveys</li>
+          <li>Monitoring and evaluation frameworks</li>
+          <li>Impact assessment and reporting tools</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 07 Financial Management -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Financial_management.png')"></div>
+      <div class="service-num">07</div>
+      <div class="service-front">
+        <div class="service-title">Financial Management</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Financial Management</div>
+        <ul class="panel-sub-list">
+          <li>Financial planning and budgeting</li>
+          <li>Tax planning and management</li>
+          <li>Accounting book-keeping services</li>
+          <li>Cash flow analysis and forecasting</li>
+          <li>Financial reporting for stakeholders</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 08 Tertiary Education -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Tertiary_education.png')"></div>
+      <div class="service-num">08</div>
+      <div class="service-front">
+        <div class="service-title">Alternative Tertiary Education</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Alternative Tertiary Education</div>
+        <ul class="panel-sub-list">
+          <li>Professional skills training programmes</li>
+          <li>Entrepreneurship and business skills workshops</li>
+          <li>Capacity building for individuals and organisations</li>
+          <li>Youth and community empowerment sessions</li>
+          <li>Certification in practical business skills</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 09 Marketing -->
+    <div class="service-card fade-up" onclick="toggleService(this)">
+      <div class="service-bg" style="background-image:url('Marketing.png')"></div>
+      <div class="service-num">09</div>
+      <div class="service-front">
+        <div class="service-title">Marketing &amp; Social Media</div>
+        <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
+      </div>
+      <div class="service-panel">
+        <button class="panel-close" onclick="closeService(event, this)">✕</button>
+        <div class="panel-title">Marketing &amp; Social Media</div>
+        <ul class="panel-sub-list">
+          <li>Digital marketing strategy and execution</li>
+          <li>Social media management and content creation</li>
+          <li>Traditional media advertising campaigns</li>
+          <li>Brand awareness and promotions</li>
+          <li>Email and direct marketing campaigns</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <p class="section-tag fade-up">Sectors We Serve</p>
+  <h2 class="fade-up">INDUSTRIES</h2>
+  <div class="divider fade-up"></div>
+  <div class="industries-grid">
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">🌾</span><div class="industry-name">Agriculture &amp; Livestock</div><div class="industry-desc">Long-lasting solutions that increase agricultural production, ensuring you meet client demands in a growing market.</div></div>
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">🏦</span><div class="industry-name">Banking &amp; Finance</div><div class="industry-desc">Professional, legally compliant financial planning services that keep your books balanced and stakeholders confident.</div></div>
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">🎓</span><div class="industry-name">Education</div><div class="industry-desc">Marketing and corporate branding tailored to education's unique demands, helping institutions stand out competitively.</div></div>
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">⚡</span><div class="industry-name">Energy</div><div class="industry-desc">Strategic guidance to maximise profits through modern technology and infrastructure in the energy sector.</div></div>
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">🏛️</span><div class="industry-name">Government</div><div class="industry-desc">System design and policy suggestions that create flawless working environments and ensure objectives are met with ease.</div></div>
+    <div class="industry-card fade-up"><div class="industry-bar"></div><span class="industry-emoji">✈️</span><div class="industry-name">Tourism</div><div class="industry-desc">Capacity building and skills development for Zambia's largest untapped revenue-generating sector.</div></div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <p class="section-tag fade-up">What Drives Us</p>
+  <h2 class="fade-up">CORE VALUES</h2>
+  <div class="divider fade-up"></div>
+  <div class="values-grid">
+    <div class="value-item fade-up"><div class="value-title">Customer Satisfaction</div><div class="value-desc">We develop relationships that make a positive difference in our customers' lives.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Quality</div><div class="value-desc">Outstanding products and unsurpassed services delivering premium value to every client.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Integrity</div><div class="value-desc">We uphold the highest standards of integrity in all of our actions, without exception.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Teamwork</div><div class="value-desc">We work together across boundaries to meet client needs and help the company win.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Respect for People</div><div class="value-desc">We value our people, encourage their development, and reward their performance.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Good Citizenship</div><div class="value-desc">Responsible individually and corporately for the wellbeing of our society and communities.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Will to Win</div><div class="value-desc">We exhibit a strong will to win in the marketplace and in every aspect of our business.</div></div>
+    <div class="value-item fade-up"><div class="value-title">Accountability</div><div class="value-desc">We are personally accountable for delivering on our commitments, every time.</div></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <p class="section-tag fade-up">The People Behind CINGS</p>
+  <h2 class="fade-up">MANAGEMENT TEAM</h2>
+  <div class="divider fade-up"></div>
+  <div class="team-showcase fade-up">
+    <div class="team-featured">
+      <div class="team-featured-img-wrap">
+        <img id="featuredImg" src="Sikelete_Chikote_Gift.jpeg" alt="Team Member">
+      </div>
+      <div class="team-featured-name" id="featuredName">Sikelete Chikote Gift</div>
+      <div class="team-featured-role" id="featuredRole">CEO &amp; Founder</div>
+    </div>
+    <div class="team-thumbs">
+      <div class="team-thumb active" data-img="Sikelete_Chikote_Gift.jpeg" data-name="Sikelete Chikote Gift" data-role="CEO &amp; Founder">
+        <img src="Sikelete_Chikote_Gift.jpeg" alt="Sikelete Chikote Gift">
+        <div class="thumb-label"><span class="thumb-name">Sikelete Chikote Gift</span><span class="thumb-role">CEO &amp; Founder</span></div>
+      </div>
+      <div class="team-thumb" data-img="Sibuku_Nicholas.jpg" data-name="Sibuku Nicholas" data-role="Chief Operations Officer">
+        <img src="Sibuku_Nicholas.jpg" alt="Sibuku Nicholas">
+        <div class="thumb-label"><span class="thumb-name">Sibuku Nicholas</span><span class="thumb-role">Chief Operations Officer</span></div>
+      </div>
+      <div class="team-thumb" data-img="Kaimbo_Sikelete.jpeg" data-name="Kaimbo Sikelete" data-role="Software Engineer">
+        <img src="Kaimbo_Sikelete.jpeg" alt="Kaimbo Sikelete">
+        <div class="thumb-label"><span class="thumb-name">Kaimbo Sikelete</span><span class="thumb-role">Software Engineer</span></div>
+      </div>
+      <div class="team-thumb" data-img="Lugwalo_Muchimba.jpeg" data-name="Lugwalo Muchimba" data-role="Administration Manager">
+        <img src="Lugwalo_Muchimba.jpeg" alt="Lugwalo Muchimba">
+        <div class="thumb-label"><span class="thumb-name">Administration Manager</span><span class="thumb-role">Administration Managerr</span></div>
+      </div>
+      <div class="team-thumb" data-img="Shaba_Tendai.jpg" data-name="Shaba Tendai" data-role="Finance Officer">
+        <img src="Shaba_Tendai.jpg" alt="Shaba Tendai">
+        <div class="thumb-label"><span class="thumb-name">Shaba Tendai</span><span class="thumb-role">Finance Officer</span></div>
+      </div>
+      <div class="team-thumb" data-img="Malambo_Rasford.jpeg" data-name="Malambo Rasford" data-role="M&amp;E Officer">
+        <img src="Malambo_Rasford.jpeg" alt="Malambo Rasford">
+        <div class="thumb-label"><span class="thumb-name">Malambo Rasford</span><span class="thumb-role">M&amp;E Officer</span></div>
+      </div>
+      <div class="team-thumb" data-img="Simaanya_Mwiche.jpg" data-name="Simaanya Mwiche" data-role="PR &amp; Marketing Manager">
+        <img src="Simaanya_Mwiche.jpg" alt="Simaanya Mwiche">
+        <div class="thumb-label"><span class="thumb-name">Simaanya Mwiche</span><span class="thumb-role">PR &amp; Marketing Manager</span></div>
+      </div>
+      <div class="team-thumb" data-img="POLOTO_POLOTA_PIC.jpg" data-name="Polota Polota" data-role="Human Resources Manager">
+        <img src="POLOTO_POLOTA_PIC.jpg" alt="Polota Polota">
+        <div class="thumb-label"><span class="thumb-name">Polota Polota</span><span class="thumb-role">Human Resources Manager</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="clients">
+  <p class="section-tag fade-up">Trusted By</p>
+  <h2 class="fade-up">OUR PARTNERS</h2>
+  <div class="divider fade-up"></div>
+  <div class="partners-stats fade-up">
+    <div class="partner-stat"><div class="partner-stat-num">20+</div><div class="partner-stat-label">Business Partners</div></div>
+    <div class="partner-stat-divider"></div>
+    <div class="partner-stat"><div class="partner-stat-num">1,300+</div><div class="partner-stat-label">Clients Served</div></div>
+  </div>
+  <div class="clients-marquee-wrap fade-up">
+    <div class="clients-track">
+      <div class="client-chip">Pumba Tours &amp; Safaris</div>
+      <div class="client-chip">Geepakx Business Centre</div>
+      <div class="client-chip">Jeetech Engineering</div>
+      <div class="client-chip">Biashara Mining Limited</div>
+      <div class="client-chip">Indigina Food Suppliers</div>
+      <div class="client-chip">Licho Store &amp; Supply</div>
+      <div class="client-chip">Quick-Deli</div>
+      <div class="client-chip">Pitoh Lodge</div>
+      <div class="client-chip">God's Wish Farms</div>
+      <div class="client-chip">Sandland Products</div>
+      <div class="client-chip">PezoRuby Trading</div>
+      <div class="client-chip">Ashton Agric</div>
+      <div class="client-chip">Kafue Main SDA Church</div>
+      <div class="client-chip">Li's Food Supply</div>
+      <div class="client-chip">Ngebe's Book Shop</div>
+      <div class="client-chip">Lumwangi Media</div>
+      <div class="client-chip">Ethical Institute &amp; Leadership Academy</div>
+      <div class="client-chip">Ramapo Integrated Business</div>
+      <div class="client-chip">Esqit Agro-Tech</div>
+      <div class="client-chip">Kambombo Investment</div>
+      <div class="client-chip">Pumba Tours &amp; Safaris</div>
+      <div class="client-chip">Geepakx Business Centre</div>
+      <div class="client-chip">Jeetech Engineering</div>
+      <div class="client-chip">Biashara Mining Limited</div>
+      <div class="client-chip">Indigina Food Suppliers</div>
+      <div class="client-chip">Licho Store &amp; Supply</div>
+      <div class="client-chip">Quick-Deli</div>
+      <div class="client-chip">Pitoh Lodge</div>
+      <div class="client-chip">God's Wish Farms</div>
+      <div class="client-chip">Sandland Products</div>
+      <div class="client-chip">PezoRuby Trading</div>
+      <div class="client-chip">Ashton Agric</div>
+      <div class="client-chip">Kafue Main SDA Church</div>
+      <div class="client-chip">Li's Food Supply</div>
+      <div class="client-chip">Ngebe's Book Shop</div>
+      <div class="client-chip">Lumwangi Media</div>
+      <div class="client-chip">Ethical Institute &amp; Leadership Academy</div>
+      <div class="client-chip">Ramapo Integrated Business</div>
+      <div class="client-chip">Esqit Agro-Tech</div>
+      <div class="client-chip">Kambombo Investment</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-intro fade-up">
+    <p class="section-tag">What Our Clients Say</p>
+    <h2>RATE OUR SERVICES</h2>
+    <div class="divider"></div>
+    <p>Your feedback helps us improve and grow. Share your experience working with CINGS Enterprises — we read every review.</p>
+  </div>
+  <div class="review-form-wrap fade-up">
+    <div class="star-row">
+      <span>Your Rating</span>
+      <div class="stars">
+        <input type="radio" name="rating" id="s5" value="5"><label for="s5">&#9733;</label>
+        <input type="radio" name="rating" id="s4" value="4"><label for="s4">&#9733;</label>
+        <input type="radio" name="rating" id="s3" value="3"><label for="s3">&#9733;</label>
+        <input type="radio" name="rating" id="s2" value="2"><label for="s2">&#9733;</label>
+        <input type="radio" name="rating" id="s1" value="1"><label for="s1">&#9733;</label>
+      </div>
+    </div>
+    <div class="review-fields">
+      <div class="review-field">
+        <label>Your Name</label>
+        <input type="text" id="reviewName" placeholder="e.g. John Banda">
+      </div>
+      <div class="review-field">
+        <label>Service Used</label>
+        <select id="reviewService">
+          <option value="">Select a service...</option>
+          <option>Business Consultancy</option>
+          <option>Company Profiling</option>
+          <option>Graphic Design &amp; Branding</option>
+          <option>Website Development</option>
+          <option>Market Research</option>
+          <option>Project Planning &amp; M&amp;E</option>
+          <option>Financial Management</option>
+          <option>Capacity Building</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="review-field full">
+        <label>Your Message</label>
+        <textarea id="reviewMsg" placeholder="Tell others about your experience with CINGS Enterprises..."></textarea>
+      </div>
+    </div>
+    <button class="review-submit" onclick="submitReview()">Submit Review</button>
+    <div class="review-success" id="reviewSuccess"><span style="font-size:1.4rem">⭐</span><span>Thank you! Your review has been submitted.</span></div>
+  </div>
+  <div class="reviews-display-title fade-up">CLIENT REVIEWS</div>
+  <div class="reviews-list" id="reviewsList">
+    <div class="review-card fade-up">
+      <div class="review-card-stars">★★★★★</div>
+      <div class="review-card-msg">"CINGS helped us develop a solid business plan that secured our first investor. Their consultancy is thorough and professional."</div>
+      <div class="review-card-footer"><div><div class="review-card-name">Chanda Mulenga</div><div class="review-card-service">Business Consultancy</div></div><div class="review-card-date">Jan 2026</div></div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-card-stars">★★★★★</div>
+      <div class="review-card-msg">"The branding and company profile they created for us was beyond expectations. We looked like a Fortune 500 company overnight."</div>
+      <div class="review-card-footer"><div><div class="review-card-name">Mutale Kapata</div><div class="review-card-service">Company Profiling</div></div><div class="review-card-date">Nov 2025</div></div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-card-stars">★★★★☆</div>
+      <div class="review-card-msg">"Fast turnaround on our website and very responsive team. Would recommend CINGS to any business looking to grow their digital presence."</div>
+      <div class="review-card-footer"><div><div class="review-card-name">Naomi Phiri</div><div class="review-card-service">Website Development</div></div><div class="review-card-date">Oct 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info fade-up">
+    <p class="section-tag">Get In Touch</p>
+    <h2>LET'S WORK TOGETHER</h2>
+    <div class="divider"></div>
+    <p>We offer tailor-made payment terms subject to mutual agreement. Reach out to discuss how CINGS Enterprises can give smartness to your business.</p>
+    <div class="contact-detail">
+      <div class="contact-icon">📞</div>
+      <div><div class="contact-text-label">Phone</div><div class="contact-text-val">+260 976 331 070</div><div class="contact-text-val">+260 963 448 837</div></div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">✉️</div>
+      <div><div class="contact-text-label">Email</div><div class="contact-text-val">cingsenterprises@gmail.com</div></div>
+    </div>
+    <div class="contact-detail" href>
+      <div class="contact-icon">🗺️</div>
+      <div><div class="contact-text-label">Address</div><div class="contact-text-val">Chalala 18002</div><div class="contact-text-val">Lusaka, Zambia.</div><div class="contact-text-val">Zesco Area</div><div class="contact-text-val">Sesheke, Zambia.</div></div>
+    </div>
+  </div>
+  <div class="contact-form fade-up">
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+    </div>
+    <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@company.com"></div>
+    <div class="form-group">
+      <label>Service Interested In</label>
+      <select>
+        <option value="">Select a service...</option>
+        <option>Business Consultancy</option>
+        <option>Company Profiling</option>
+        <option>Graphic Design &amp; Branding</option>
+        <option>Website Development</option>
+        <option>Market Research</option>
+        <option>Project Planning &amp; M&amp;E</option>
+        <option>Financial Management</option>
+        <option>Capacity Building</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your business and what you need..."></textarea></div>
+    <button class="form-submit" onclick="alert('Thank you! We will be in touch shortly.')">Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">&copy; 2026 <strong>CINGS Enterprises</strong>. All rights reserved.</div>
+  <div class="footer-motto">"Good thoughts · Good deeds · Broad vision"</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+  }
+
+  // Service card toggle
+  function toggleService(card) {
+    const isOpen = card.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.service-card.open').forEach(c => c.classList.remove('open'));
+    // Open this one if it wasn't already open
+    if (!isOpen) card.classList.add('open');
+  }
+  function closeService(e, btn) {
+    e.stopPropagation();
+    btn.closest('.service-card').classList.remove('open');
+  }
+
+  // Team showcase
+  document.querySelectorAll('.team-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.team-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      const featImg = document.getElementById('featuredImg');
+      featImg.style.opacity = '0';
+      setTimeout(() => {
+        featImg.src = thumb.dataset.img;
+        document.getElementById('featuredName').innerHTML = thumb.dataset.name;
+        document.getElementById('featuredRole').innerHTML = thumb.dataset.role;
+        featImg.style.opacity = '1';
+      }, 250);
+    });
+  });
+
+  // Review submission
+  function submitReview() {
+    const rating = document.querySelector('input[name="rating"]:checked');
+    const name = document.getElementById('reviewName').value.trim();
+    const service = document.getElementById('reviewService').value;
+    const msg = document.getElementById('reviewMsg').value.trim();
+    if (!rating) { alert('Please select a star rating.'); return; }
+    if (!name) { alert('Please enter your name.'); return; }
+    if (!msg) { alert('Please write a message.'); return; }
+    const stars = parseInt(rating.value);
+    const starStr = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+    const now = new Date();
+    const dateStr = now.toLocaleString('default', { month: 'short', year: 'numeric' });
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `<div class="review-card-stars">${starStr}</div><div class="review-card-msg">"${msg}"</div><div class="review-card-footer"><div><div class="review-card-name">${name}</div><div class="review-card-service">${service || 'General'}</div></div><div class="review-card-date">${dateStr}</div></div>`;
+    document.getElementById('reviewsList').insertBefore(card, document.getElementById('reviewsList').firstChild);
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewService').value = '';
+    document.getElementById('reviewMsg').value = '';
+    document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+    const success = document.getElementById('reviewSuccess');
+    success.classList.add('show');
+    setTimeout(() => success.classList.remove('show'), 4000);
+  }
+
+  // Fade-up on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Stagger grids
+  document.querySelectorAll('.services-grid, .industries-grid, .values-grid, .reviews-list').forEach(grid => {
+    grid.querySelectorAll('.fade-up').forEach((card, i) => { card.style.transitionDelay = i * 60 + 'ms'; });
+  });
+</script>
+</body>
+</html>
