@@ -155,15 +155,73 @@
   .service-hint-arrow { display: inline-block; transition: transform 0.3s; font-size: 0.8rem; }
   .service-card:hover .service-hint-arrow { transform: translateX(4px); }
   .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .service-card:hover::after, .service-card.open::after { transform: scaleX(1); }
-  .service-panel { position: absolute; inset: 0; z-index: 4; background: rgba(10,22,40,0.97); padding: 24px; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity 0.3s ease, transform 0.3s ease; overflow-y: auto; }
-  .service-card.open .service-panel { opacity: 1; pointer-events: all; transform: translateY(0); }
-  .panel-close { align-self: flex-end; background: none; border: none; cursor: pointer; color: var(--gray); font-size: 1.2rem; line-height: 1; transition: color 0.2s; margin-bottom: 8px; padding: 2px 6px; }
-  .panel-close:hover { color: var(--white); }
-  .panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; color: var(--red-bright); margin-bottom: 14px; border-bottom: 1px solid rgba(107,15,26,0.4); padding-bottom: 10px; }
-  .panel-sub-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .panel-sub-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
-  .panel-sub-list li::before { content: '▸'; color: var(--red-bright); flex-shrink: 0; margin-top: 1px; font-size: 0.7rem; }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  /* SERVICE MODAL */
+  .service-modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(6,13,26,0.85);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+  }
+  .service-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .service-modal {
+    background: var(--navy-light);
+    border: 1px solid rgba(107,15,26,0.5);
+    border-top: 3px solid var(--red);
+    width: 100%; max-width: 540px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.3s ease;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  }
+  .service-modal-overlay.open .service-modal { transform: translateY(0) scale(1); }
+  .service-modal-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    gap: 16px;
+  }
+  .service-modal-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+    color: rgba(107,15,26,0.3); line-height: 1; flex-shrink: 0;
+  }
+  .service-modal-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 2px; color: var(--white); line-height: 1.1;
+    flex: 1;
+  }
+  .service-modal-close {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--gray); font-size: 1.1rem; width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: background 0.2s, color 0.2s;
+    border-radius: 2px;
+  }
+  .service-modal-close:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+  .service-modal-body { padding: 24px 28px 32px; }
+  .service-modal-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .service-modal-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.9rem; color: var(--gray); line-height: 1.6;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .service-modal-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .service-modal-list li::before {
+    content: '▸'; color: var(--red-bright); flex-shrink: 0;
+    margin-top: 3px; font-size: 0.75rem;
+  }
+  .service-modal-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(0.06) saturate(0.3);
+    pointer-events: none;
+  }
 
   /* INDUSTRIES */
   #industries { background: var(--navy); }
@@ -526,176 +584,94 @@
     <p>Click any service to explore what's included. Each offering is tailored to meet your specific business needs.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="01" data-title="Business Consultancy &amp; Development" data-bg="Business_development.png"
+      data-items='["General business consultancy (Per Hour)","Company Registration — Limited + ZRA + NAPSA","Business proposal development","Business Name + ZRA + NAPSA registration","Limited Company + ZRA registration","Business Name registration","ZPPA Registration"]'>
       <div class="service-bg" style="background-image:url('Business_development.png')"></div>
       <div class="service-num">01</div>
       <div class="service-front">
         <div class="service-title">Business Consultancy &amp; Development</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Business Consultancy &amp; Development</div>
-        <ul class="panel-sub-list">
-          <li>General business consultancy (Per Hour)</li>
-          <li>Company Registration — Limited + ZRA + NAPSA</li>
-          <li>Business proposal development</li>
-          <li>Business Name + ZRA + NAPSA registration</li>
-          <li>Limited Company + ZRA registration</li>
-          <li>Business Name registration</li>
-          <li>ZPPA Registration</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="02" data-title="Company Profiling" data-bg="Company_profiling.png"
+      data-items='["Professional company profile design and writing","Brand identity documentation","Capability statements for tenders and proposals","Investor and stakeholder presentation packages","Mission, vision and values articulation"]'>
       <div class="service-bg" style="background-image:url('Company_profiling.png')"></div>
       <div class="service-num">02</div>
       <div class="service-front">
         <div class="service-title">Company Profiling</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Company Profiling</div>
-        <ul class="panel-sub-list">
-          <li>Professional company profile design and writing</li>
-          <li>Brand identity documentation</li>
-          <li>Capability statements for tenders and proposals</li>
-          <li>Investor and stakeholder presentation packages</li>
-          <li>Mission, vision and values articulation</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="03" data-title="Graphic Design &amp; Branding" data-bg="Grapgic_design.png"
+      data-items='["Logo design and brand identity creation","Social media graphics and banners","Brochures, flyers and marketing materials","General printing and production management","Brand style guides and consistency documents"]'>
       <div class="service-bg" style="background-image:url('Grapgic_design.png')"></div>
       <div class="service-num">03</div>
       <div class="service-front">
         <div class="service-title">Graphic Design &amp; Branding</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Graphic Design &amp; Branding</div>
-        <ul class="panel-sub-list">
-          <li>Logo design and brand identity creation</li>
-          <li>Social media graphics and banners</li>
-          <li>Brochures, flyers and marketing materials</li>
-          <li>General printing and production management</li>
-          <li>Brand style guides and consistency documents</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="04" data-title="Website Development" data-bg="web_development.png"
+      data-items='["Modern, responsive website design and development","Online store setup","IT systems development and integration","Website maintenance and support","Custom web applications and portals"]'>
       <div class="service-bg" style="background-image:url('web_development.png')"></div>
       <div class="service-num">04</div>
       <div class="service-front">
         <div class="service-title">Website Development</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Website Development</div>
-        <ul class="panel-sub-list">
-          <li>Modern, responsive website design and development</li>
-          <li>Online store setup</li>
-          <li>IT systems development and integration</li>
-          <li>Website maintenance and support</li>
-          <li>Custom web applications and portals</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="05" data-title="Market &amp; Social Research" data-bg="Market_research.png"
+      data-items='["Market research and competitor analysis","Economic and feasibility research","Social research and community surveys","Data collection, analysis and reporting","Consumer demand and behaviour studies"]'>
       <div class="service-bg" style="background-image:url('Market_research.png')"></div>
       <div class="service-num">05</div>
       <div class="service-front">
         <div class="service-title">Market &amp; Social Research</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Market &amp; Social Research</div>
-        <ul class="panel-sub-list">
-          <li>Market research and competitor analysis</li>
-          <li>Economic and feasibility research</li>
-          <li>Social research and community surveys</li>
-          <li>Data collection, analysis and reporting</li>
-          <li>Consumer demand and behaviour studies</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="06" data-title="Project Planning &amp; M&amp;E" data-bg="Project_planning.png"
+      data-items='["Project planning and scheduling","Project management and oversight","Research and field surveys","Monitoring and evaluation frameworks","Impact assessment and reporting tools"]'>
       <div class="service-bg" style="background-image:url('Project_planning.png')"></div>
       <div class="service-num">06</div>
       <div class="service-front">
         <div class="service-title">Project Planning &amp; M&amp;E</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Project Planning &amp; M&amp;E</div>
-        <ul class="panel-sub-list">
-          <li>Project planning and scheduling</li>
-          <li>Project management and oversight</li>
-          <li>Research and field surveys</li>
-          <li>Monitoring and evaluation frameworks</li>
-          <li>Impact assessment and reporting tools</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="07" data-title="Financial Management" data-bg="Financial_management.png"
+      data-items='["Financial planning and budgeting","Tax planning and management","Accounting book-keeping services","Cash flow analysis and forecasting","Financial reporting for stakeholders"]'>
       <div class="service-bg" style="background-image:url('Financial_management.png')"></div>
       <div class="service-num">07</div>
       <div class="service-front">
         <div class="service-title">Financial Management</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Financial Management</div>
-        <ul class="panel-sub-list">
-          <li>Financial planning and budgeting</li>
-          <li>Tax planning and management</li>
-          <li>Accounting book-keeping services</li>
-          <li>Cash flow analysis and forecasting</li>
-          <li>Financial reporting for stakeholders</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="08" data-title="Alternative Tertiary Education" data-bg="Tertiary_education.png"
+      data-items='["Professional skills training programmes","Entrepreneurship and business skills workshops","Capacity building for individuals and organisations","Youth and community empowerment sessions"]'>
       <div class="service-bg" style="background-image:url('Tertiary_education.png')"></div>
       <div class="service-num">08</div>
       <div class="service-front">
         <div class="service-title">Alternative Tertiary Education</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
       </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Alternative Tertiary Education</div>
-        <ul class="panel-sub-list">
-          <li>Professional skills training programmes</li>
-          <li>Entrepreneurship and business skills workshops</li>
-          <li>Capacity building for individuals and organisations</li>
-          <li>Youth and community empowerment sessions</li>
-        </ul>
-      </div>
     </div>
-    <div class="service-card fade-up" onclick="toggleService(this)">
+    <div class="service-card fade-up" onclick="openServiceModal(this)"
+      data-num="09" data-title="Marketing &amp; Social Media" data-bg="Marketing.png"
+      data-items='["Digital marketing strategy and execution","Social media management and content creation","Traditional media advertising campaigns","Brand awareness and promotions","Email and direct marketing campaigns"]'>
       <div class="service-bg" style="background-image:url('Marketing.png')"></div>
       <div class="service-num">09</div>
       <div class="service-front">
         <div class="service-title">Marketing &amp; Social Media</div>
         <div class="service-hint">Tap to explore <span class="service-hint-arrow">→</span></div>
-      </div>
-      <div class="service-panel">
-        <button class="panel-close" onclick="closeService(event, this)">✕</button>
-        <div class="panel-title">Marketing &amp; Social Media</div>
-        <ul class="panel-sub-list">
-          <li>Digital marketing strategy and execution</li>
-          <li>Social media management and content creation</li>
-          <li>Traditional media advertising campaigns</li>
-          <li>Brand awareness and promotions</li>
-          <li>Email and direct marketing campaigns</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -913,6 +889,25 @@
   </div>
 </section>
 
+<!-- SERVICE MODAL -->
+<div class="service-modal-overlay" id="serviceModalOverlay" onclick="closeServiceModal(event)">
+  <div class="service-modal" id="serviceModal">
+    <div class="service-modal-bg" id="serviceModalBg"></div>
+    <div style="position:relative;z-index:1;">
+      <div class="service-modal-header">
+        <div>
+          <div class="service-modal-num" id="serviceModalNum">01</div>
+          <div class="service-modal-title" id="serviceModalTitle">Service Name</div>
+        </div>
+        <button class="service-modal-close" onclick="closeServiceModal(event, true)">✕</button>
+      </div>
+      <div class="service-modal-body">
+        <ul class="service-modal-list" id="serviceModalList"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-copy">&copy; 2026 <strong>CINGS Enterprises</strong>. All rights reserved.</div>
@@ -938,16 +933,36 @@
     mobileNav.classList.remove('open');
   }
 
-  // ── SERVICE CARDS ──
-  function toggleService(card) {
-    const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.service-card.open').forEach(c => c.classList.remove('open'));
-    if (!isOpen) card.classList.add('open');
+  // ── SERVICE MODAL ──
+  function openServiceModal(card) {
+    const overlay = document.getElementById('serviceModalOverlay');
+    const num = card.dataset.num;
+    const title = card.dataset.title;
+    const bg = card.dataset.bg;
+    const items = JSON.parse(card.dataset.items);
+
+    document.getElementById('serviceModalNum').textContent = num;
+    document.getElementById('serviceModalTitle').innerHTML = title;
+    document.getElementById('serviceModalBg').style.backgroundImage = `url('${bg}')`;
+
+    const list = document.getElementById('serviceModalList');
+    list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  function closeService(e, btn) {
-    e.stopPropagation();
-    btn.closest('.service-card').classList.remove('open');
+
+  function closeServiceModal(e, force) {
+    if (force || e.target === document.getElementById('serviceModalOverlay')) {
+      document.getElementById('serviceModalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
   }
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeServiceModal(null, true);
+  });
 
   // ── TEAM SHOWCASE ──
   document.querySelectorAll('.team-thumb').forEach(thumb => {
