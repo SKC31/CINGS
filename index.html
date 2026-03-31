@@ -391,6 +391,8 @@
   .contact-icon { width: 40px; height: 40px; background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
   .contact-text-label { font-size: 0.58rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 3px; }
   .contact-text-val { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+  .contact-text-val a { transition: color 0.2s; }
+  .contact-text-val a:hover { color: var(--gold); }
   .contact-form { display: flex; flex-direction: column; gap: 16px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -860,11 +862,14 @@
     <p>We offer tailor-made payment terms subject to mutual agreement. Reach out to discuss how CINGS Enterprises can give smartness to your business.</p>
     <div class="contact-detail">
       <div class="contact-icon">📞</div>
-      <div><div class="contact-text-label">Phone</div><div class="contact-text-val">+260 976 331 070</div><div class="contact-text-val">+260 963 448 837</div></div>
+      <div><div class="contact-text-label">Phone</div>
+        <div class="contact-text-val"><a href="tel:+260976331070" style="color:inherit;text-decoration:none;">+260 976 331 070</a></div>
+        <div class="contact-text-val"><a href="tel:+260963448837" style="color:inherit;text-decoration:none;">+260 963 448 837</a></div>
+      </div>
     </div>
     <div class="contact-detail">
       <div class="contact-icon">✉️</div>
-      <div><div class="contact-text-label">Email</div><div class="contact-text-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f5fff8f1e5f3f8e2f3e4e6e4ffe5f3e5d6f1fbf7fffab8f5f9fb">CINGS@gmail.com</a></div></div>
+      <div><div class="contact-text-label">Email</div><div class="contact-text-val"><a href="mailto:cingsenterprises@gmail.com" style="color:inherit;text-decoration:none;">cingsenterprises@gmail.com</a></div></div>
     </div>
     <div class="contact-detail">
       <div class="contact-icon">🗺️</div>
@@ -873,19 +878,25 @@
   </div>
   <div class="contact-form fade-up">
     <div class="form-row">
-      <div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div>
-      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+      <div class="form-group"><label>First Name</label><input type="text" id="contactFirstName" placeholder="John"></div>
+      <div class="form-group"><label>Last Name</label><input type="text" id="contactLastName" placeholder="Doe"></div>
     </div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@company.com"></div>
+    <div class="form-group"><label>Email Address</label><input type="email" id="contactEmail" placeholder="john@company.com"></div>
     <div class="form-group">
       <label>Service Interested In</label>
-      <select>
+      <select id="contactService">
         <option value="">Select a service...</option>
         <option>Business Consultancy</option><option>Company Profiling</option><option>Graphic Design &amp; Branding</option><option>Website Development</option><option>Market Research</option><option>Project Planning &amp; M&amp;E</option><option>Financial Management</option><option>Capacity Building</option><option>Other</option>
       </select>
     </div>
-    <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your business and what you need..."></textarea></div>
-    <button class="form-submit" onclick="alert('Thank you! We will be in touch shortly.')">Send Message</button>
+    <div class="form-group"><label>Message</label><textarea id="contactMessage" placeholder="Tell us about your business and what you need..."></textarea></div>
+    <button class="form-submit" id="contactSubmitBtn" onclick="sendContactForm()">Send Message</button>
+    <div id="contactSuccess" style="display:none;align-items:center;gap:12px;background:rgba(107,15,26,0.2);border:1px solid var(--red);padding:14px 20px;margin-top:16px;font-size:0.88rem;color:var(--white);">
+      <span style="font-size:1.4rem">✅</span><span>Message sent! We'll be in touch shortly.</span>
+    </div>
+    <div id="contactError" style="display:none;align-items:center;gap:12px;background:rgba(107,15,26,0.2);border:1px solid var(--red);padding:14px 20px;margin-top:16px;font-size:0.88rem;color:var(--white);">
+      <span style="font-size:1.4rem">⚠️</span><span id="contactErrorMsg">Something went wrong. Please try again or email us directly.</span>
+    </div>
   </div>
 </section>
 
@@ -980,7 +991,7 @@
     });
   });
 
-  // ── REVIEW SUBMISSION ──
+  // ── REVIEW SUBMISSION (4+ stars only shown) ──
   function submitReview() {
     const rating = document.querySelector('input[name="rating"]:checked');
     const name = document.getElementById('reviewName').value.trim();
@@ -989,25 +1000,95 @@
     if (!rating) { alert('Please select a star rating.'); return; }
     if (!name) { alert('Please enter your name.'); return; }
     if (!msg) { alert('Please write a message.'); return; }
+
     const stars = parseInt(rating.value);
     const starStr = '★'.repeat(stars) + '☆'.repeat(5 - stars);
     const now = new Date();
     const dateStr = now.toLocaleString('default', { month: 'short', year: 'numeric' });
-    const card = document.createElement('div');
-    card.className = 'review-card';
-    card.innerHTML = `<div class="review-quote">"</div><div class="review-card-stars">${starStr}</div><div class="review-card-msg">"${msg}"</div><div class="review-card-footer"><div><div class="review-card-name">${name}</div><div class="review-card-service">${service || 'General'}</div></div><div class="review-card-date">${dateStr}</div></div>`;
-    const track = document.getElementById('reviewsTrack');
-    track.insertBefore(card, track.firstChild);
-    // Reset slider
-    currentSlide = 0;
-    updateSlider();
+
+    // Only add to the visible slider if rating is 4 or 5 stars
+    if (stars >= 4) {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `<div class="review-quote">"</div><div class="review-card-stars">${starStr}</div><div class="review-card-msg">"${msg}"</div><div class="review-card-footer"><div><div class="review-card-name">${name}</div><div class="review-card-service">${service || 'General'}</div></div><div class="review-card-date">${dateStr}</div></div>`;
+      const track = document.getElementById('reviewsTrack');
+      track.insertBefore(card, track.firstChild);
+      currentSlide = 0;
+      buildDots();
+      updateSlider();
+    }
+
+    // Reset form
     document.getElementById('reviewName').value = '';
     document.getElementById('reviewService').value = '';
     document.getElementById('reviewMsg').value = '';
     document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+
+    // Show appropriate message
     const success = document.getElementById('reviewSuccess');
+    if (stars >= 4) {
+      success.querySelector('span:last-child').textContent = 'Thank you! Your review has been published.';
+    } else {
+      success.querySelector('span:last-child').textContent = 'Thank you for your feedback! We use lower-rated reviews internally to improve our services.';
+    }
     success.classList.add('show');
-    setTimeout(() => success.classList.remove('show'), 4000);
+    setTimeout(() => success.classList.remove('show'), 5000);
+  }
+
+  // ── CONTACT FORM — Formspree Ajax ──
+  async function sendContactForm() {
+    const firstName = document.getElementById('contactFirstName').value.trim();
+    const lastName  = document.getElementById('contactLastName').value.trim();
+    const email     = document.getElementById('contactEmail').value.trim();
+    const service   = document.getElementById('contactService').value;
+    const message   = document.getElementById('contactMessage').value.trim();
+
+    if (!firstName) { alert('Please enter your first name.'); return; }
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    if (!message) { alert('Please write a message.'); return; }
+
+    const btn = document.getElementById('contactSubmitBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    document.getElementById('contactSuccess').style.display = 'none';
+    document.getElementById('contactError').style.display = 'none';
+
+    const data = new FormData();
+    data.append('name', firstName + ' ' + lastName);
+    data.append('email', email);
+    data.append('service', service || 'Not specified');
+    data.append('message', message);
+
+    try {
+      const res = await fetch('https://formspree.io/f/xnjovbwy', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      const json = await res.json();
+
+      if (res.ok) {
+        document.getElementById('contactSuccess').style.display = 'flex';
+        document.getElementById('contactFirstName').value = '';
+        document.getElementById('contactLastName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactService').value = '';
+        document.getElementById('contactMessage').value = '';
+        setTimeout(() => document.getElementById('contactSuccess').style.display = 'none', 6000);
+      } else {
+        const errMsg = json.errors
+          ? json.errors.map(e => e.message).join(', ')
+          : 'Submission failed. Please email us directly at cingsenterprises@gmail.com';
+        document.getElementById('contactErrorMsg').textContent = errMsg;
+        document.getElementById('contactError').style.display = 'flex';
+      }
+    } catch (err) {
+      document.getElementById('contactErrorMsg').textContent = 'Network error. Please email us directly at cingsenterprises@gmail.com';
+      document.getElementById('contactError').style.display = 'flex';
+    } finally {
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    }
   }
 
   // ── REVIEWS SLIDER ──
