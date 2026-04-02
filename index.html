@@ -253,6 +253,17 @@
   #industries { background: var(--navy); }
   .logo-3d-wrap { display: flex; justify-content: center; margin-bottom: 40px; }
   #logo3d-container { width: 340px; height: 200px; position: relative; }
+  #logo3d-text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    transform: translateY(-50%);
+    z-index: 2;
+    pointer-events: none;
+    line-height: 1;
+  }
   .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
   .industry-card { padding: 36px 28px; border: 1px solid rgba(255,255,255,0.07); position: relative; overflow: hidden; transition: border-color 0.3s; }
   .industry-card:hover { border-color: rgba(107,15,26,0.5); }
@@ -611,9 +622,8 @@
   <div class="divider fade-up"></div>
   <div class="logo-3d-wrap fade-up">
     <div id="logo3d-container">
-      <div id="logo3d-text" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;display:flex;align-items:baseline;gap:0;">
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#ffffff;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,0.7);">C</span>
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#f5f5f0;line-height:1;letter-spacing:3px;text-shadow:0 2px 12px rgba(0,0,0,0.7);">INGS</span>
+      <div id="logo3d-text">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#ffffff;text-shadow:0 2px 16px rgba(0,0,0,0.9);">C</span><span style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:#f5f5f0;letter-spacing:3px;text-shadow:0 2px 16px rgba(0,0,0,0.9);">INGS</span>
       </div>
     </div>
   </div>
